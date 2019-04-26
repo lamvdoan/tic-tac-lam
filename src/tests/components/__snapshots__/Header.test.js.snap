@@ -13,7 +13,7 @@ exports[`should render header properly 1`] = `
       to="/"
     >
       <h1>
-        Boilerplate
+        Tic Tac Lam
       </h1>
     </Link>
   </div>
