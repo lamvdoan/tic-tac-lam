@@ -1,8 +1,9 @@
 import React from 'react';
+import Board from './Board';
 
 const DashboardPage = () => (
     <div>
-        Tic Tac Lam Landing Page
+        <Board />
     </div>
 );
 

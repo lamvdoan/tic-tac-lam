@@ -6,6 +6,7 @@ import AppRouter from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import 'react-dates/lib/css/_datepicker.css';
+import { Game } from './app/game';
 
 const store = configureStore();
 
@@ -21,3 +22,5 @@ const jsx = (
 
 ReactDOM.render(jsx, document.getElementById('app'));
 
+let game = new Game();
+game.startGame();

@@ -10,6 +10,7 @@ export class Game {
         this.grid = Array(MAX_NUMBER_OF_CELLS).fill(UNOCCUPIED_CELL);
         this.isGameActive = true;
         this.currentPlayer = this.players[0];
+        console.log('Game starting...');
     }
 
     chooseACell(index) {
