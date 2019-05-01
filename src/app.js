@@ -21,4 +21,3 @@ const jsx = (
 );
 
 ReactDOM.render(jsx, document.getElementById('app'));
-// console.log(store.getState());
