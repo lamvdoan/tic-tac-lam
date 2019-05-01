@@ -6,7 +6,7 @@ export class Board extends React.Component {
         return (
             <div className="board">
                 <div className="board__row">
-                    <Cell id="0"/>
+                    <Cell id="0" />
                     <Cell id="1"/>
                     <Cell id="2"/>
                 </div>

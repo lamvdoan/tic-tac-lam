@@ -1,8 +1,12 @@
 import React from 'react';
 import Board from './Board';
+import SummaryWindow from './SummaryWindow';
 
 const DashboardPage = () => (
-    <div>
+    <div className="dashboard">
+        <div className="summary-window">
+            <SummaryWindow />
+        </div>
         <Board />
     </div>
 );

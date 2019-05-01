@@ -21,6 +21,4 @@ const jsx = (
 );
 
 ReactDOM.render(jsx, document.getElementById('app'));
-
-let game = new Game();
-game.startGame();
+// console.log(store.getState());
