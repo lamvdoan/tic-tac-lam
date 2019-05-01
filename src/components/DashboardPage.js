@@ -1,8 +1,13 @@
 import React from 'react';
+import Board from './Board';
+import SummaryWindow from './SummaryWindow';
 
 const DashboardPage = () => (
-    <div>
-        Tic Tac Lam Landing Page
+    <div className="dashboard">
+        <div className="summary-window">
+            <SummaryWindow />
+        </div>
+        <Board />
     </div>
 );
 

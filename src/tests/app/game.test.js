@@ -15,8 +15,8 @@ test('should initialize values', () => {
 /* chooseACell() */
 
 test('should call a series of function when chosen cell is valid', () => {
-    // const cellIsMarked = jest.fn();
     let game = new Game();
+
     game.cellIsMarked = jest.fn();
     game.checkForWinCondition = jest.fn();
     game.checkForCatCondition = jest.fn();

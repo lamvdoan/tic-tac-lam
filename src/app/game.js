@@ -1,5 +1,5 @@
 import { Player } from './player';
-import { UNOCCUPIED_CELL, MAX_NUMBER_OF_CELLS, PLAYER_ONE_ID, PLAYER_TWO_ID, WINNING_CELLS_LIST } from './properties';
+import { UNOCCUPIED_CELL, MAX_NUMBER_OF_CELLS, PLAYER_ONE_ID, PLAYER_TWO_ID, WINNING_CELLS_LIST } from '../properties/game';
 
 export class Game {
     constructor() {
@@ -10,6 +10,7 @@ export class Game {
         this.grid = Array(MAX_NUMBER_OF_CELLS).fill(UNOCCUPIED_CELL);
         this.isGameActive = true;
         this.currentPlayer = this.players[0];
+        console.log('Game starting...');
     }
 
     chooseACell(index) {
