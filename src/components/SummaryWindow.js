@@ -1,14 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-export const SummaryWindow = ({ currentPlayer }) => (
-    <div>
-        <p>Current Player: {currentPlayer}</p>
+export const SummaryWindow = ({ game }) => (
+    <div className="summary-window">
+        <p>{game.isGameActive ? 'Player ' + game.currentPlayer.getPlayerId() + '\'s Turn': 'Game Over!'}</p>
+        <p>{game.isGameActive ? '' : `Player ${game.currentPlayer.getPlayerId()} Wins!`}</p>
     </div>
 );
 
 const mapStateToProps = (state) => ({
-    currentPlayer: state.currentPlayer
+    game: state.game
 });
 
 export default connect(mapStateToProps)(SummaryWindow);

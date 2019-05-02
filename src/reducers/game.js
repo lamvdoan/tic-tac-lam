@@ -1,8 +1,16 @@
 import { Player } from '../app/player';
-import { MAX_NUMBER_OF_CELLS, UNOCCUPIED_CELL, PLAYER_ONE_ID, PLAYER_TWO_ID, X_CELL, O_CELL } from '../properties/game';
+import { 
+    MAX_NUMBER_OF_CELLS, 
+    UNOCCUPIED_CELL, 
+    PLAYER_ONE_ID, 
+    PLAYER_TWO_ID, 
+    X_CELL, 
+    O_CELL
+} from '../properties/game';
+
 import { 
     RESTART_GAME, 
-    UPDATE_GRID_ELEMENT, 
+    UPDATE_CELL_ON_BOARD, 
     SET_GAME_INACTIVE, 
     GET_NEXT_PLAYER
 } from '../actions/types';
@@ -23,9 +31,9 @@ export default (state = gameReducerDefaultState, action) => {
     switch (action.type) {
         case RESTART_GAME:
             return {
-                gameReducerDefaultState
+                ...gameReducerDefaultState
             };
-        case UPDATE_GRID_ELEMENT:
+        case UPDATE_CELL_ON_BOARD:
             return {
                 ...state, 
                 grid: state.grid.map((current, index) => {

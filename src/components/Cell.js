@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { X_CELL, O_CELL } from '../properties/game';
 import { O_CELL_IMAGE, X_CELL_IMAGE, EMPTY_CELL_IMAGE, IMAGE_HOME } from '../properties/imageFileSystem';
-import { chooseACell } from '../actions/game';
+import { chooseACell, checkEndGameCondition } from '../actions/game';
 
 const imagePath = {
     emptyCell: `${IMAGE_HOME}/${EMPTY_CELL_IMAGE}`,
@@ -13,6 +13,7 @@ const imagePath = {
 export class Cell extends React.Component {
     onClick = () => {
         this.props.chooseACell(this.props.id);
+        this.props.checkEndGameCondition();
     }
 
     getImageName = () => {
@@ -38,7 +39,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    chooseACell: (index) => dispatch(chooseACell(index))
+    chooseACell: (index) => dispatch(chooseACell(index)),
+    checkEndGameCondition: () => dispatch(checkEndGameCondition())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cell);
