@@ -1,4 +1,6 @@
 const UNOCCUPIED_CELL = '';
+const X_CELL = 'X';
+const O_CELL = 'O';
 const MAX_NUMBER_OF_CELLS = 9;
 const PLAYER_ONE_ID = 1;
 const PLAYER_TWO_ID = 2;
@@ -13,4 +15,12 @@ const WINNING_CELLS_LIST = [
     [2, 4, 6]
 ];
 
-export { UNOCCUPIED_CELL, MAX_NUMBER_OF_CELLS, PLAYER_ONE_ID, PLAYER_TWO_ID, WINNING_CELLS_LIST };
+export { 
+    UNOCCUPIED_CELL, 
+    X_CELL,
+    O_CELL,
+    MAX_NUMBER_OF_CELLS, 
+    PLAYER_ONE_ID, 
+    PLAYER_TWO_ID, 
+    WINNING_CELLS_LIST
+};
