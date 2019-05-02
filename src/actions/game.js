@@ -13,7 +13,7 @@ import {
 
 export function restartGame() {
     return {
-        type: RESTART_GAME,
+        type: RESTART_GAME
     };
 }
 

@@ -16,7 +16,7 @@ const gameReducerDefaultState = {
     grid: Array(MAX_NUMBER_OF_CELLS).fill(UNOCCUPIED_CELL),
     isGameActive: true,
     players: players,
-    currentPlayer: players[0],
+    currentPlayer: players[0]
 };
 
 export default (state = gameReducerDefaultState, action) => {
