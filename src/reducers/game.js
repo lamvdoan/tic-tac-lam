@@ -4,11 +4,7 @@ import {
     RESTART_GAME, 
     UPDATE_GRID_ELEMENT, 
     SET_GAME_INACTIVE, 
-    GET_NEXT_PLAYER,
-    CHOOSE_A_CELL,
-    IS_MOVED_VALID,
-    CHECK_FOR_WIN_CONDITION,
-    CHECK_FOR_CAT_CONDITION
+    GET_NEXT_PLAYER
 } from '../actions/types';
 
 const players = [
