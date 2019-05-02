@@ -1,10 +1,19 @@
 import { Player } from '../app/player';
-import { MAX_NUMBER_OF_CELLS, UNOCCUPIED_CELL, PLAYER_ONE_ID, PLAYER_TWO_ID } from '../properties/game';
-import { UPDATE_GRID_ELEMENT, SET_IS_GAME_ACTIVE, SET_CURRENT_PLAYER } from '../properties/actions';
+import { MAX_NUMBER_OF_CELLS, UNOCCUPIED_CELL, PLAYER_ONE_ID, PLAYER_TWO_ID, X_CELL, O_CELL } from '../properties/game';
+import { 
+    RESTART_GAME, 
+    UPDATE_GRID_ELEMENT, 
+    SET_GAME_INACTIVE, 
+    GET_NEXT_PLAYER,
+    CHOOSE_A_CELL,
+    IS_MOVED_VALID,
+    CHECK_FOR_WIN_CONDITION,
+    CHECK_FOR_CAT_CONDITION
+} from '../actions/types';
 
 const players = [
-    new Player('X', PLAYER_ONE_ID), 
-    new Player('O', PLAYER_TWO_ID)
+    new Player(X_CELL, PLAYER_ONE_ID), 
+    new Player(O_CELL, PLAYER_TWO_ID)
 ];
 
 const gameReducerDefaultState = {
@@ -16,7 +25,11 @@ const gameReducerDefaultState = {
 
 export default (state = gameReducerDefaultState, action) => {
     switch (action.type) {
-        case 'UPDATE_GRID_ELEMENT':
+        case RESTART_GAME:
+            return {
+                gameReducerDefaultState
+            };
+        case UPDATE_GRID_ELEMENT:
             return {
                 ...state, 
                 grid: state.grid.map((current, index) => {
@@ -27,15 +40,15 @@ export default (state = gameReducerDefaultState, action) => {
                     return current;
                 })
             };
-        case 'SET_IS_GAME_ACTIVE':
+        case SET_GAME_INACTIVE:
             return {
                 ...state, 
                 isGameActive: false
             };
-        case 'SET_CURRENT_PLAYER':
+        case GET_NEXT_PLAYER:
             return {
                 ...state, 
-                currentPlayer: state.currentPlayer.getPlayerId() === PLAYER_ONE_ID ? state.players[1] : state.players[0]
+                currentPlayer: state.currentPlayer.getPlayerId() === state.players[0].getPlayerId() ? state.players[1] : state.players[0]
             };
         default:
             return state;
