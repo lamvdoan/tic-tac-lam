@@ -1,0 +1,9 @@
+.panel {
+    width: $panel-size-for-desktop;
+
+    @media(max-width: $desktop-breakpoint) {
+        margin: $l-size 0 $l-size $l-size;
+        max-width: $panel-size-for-mobile;
+        height: $panel-size-for-mobile;
+    }
+}

@@ -1,5 +1,9 @@
 .summary-window {
-    background-color: aqua;
-    padding: $m-size 0 0 $m-size;
-    height: 80%;
+    background-color: grey;
+    color: white;
+    border: .01rem solid black;
+    padding: $m-size 0 $m-size 0;
+    height: 70%;
+    text-align: center;
+    vertical-align: middle;
 }

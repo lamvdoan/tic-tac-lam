@@ -4,18 +4,28 @@ $grey: #666;
 $blue: #1c88bf;
 $dark-blue: #354051;
 $off-white: #f7f7f7;
+$off-blue: #536294;
 
 // Spacing
 $s-size: 1.2rem;
 $m-size: 1.6rem;
 $l-size: 3.2rem;
 $xl-size: 4.8rem;
-$xxl-size: 16rem;
-$desktop-breakpoint: 45rem;
+$xxl-size: 8rem;
+$xxxl-size: 16rem;
 
 // Font size
-$font-size-small: 1.4rem;
-$font-size-large: 1.8rem;
-$font-size-extra-large: 3.6rem;
+$font-size-s: 1.4rem;
+$font-size-l: 1.8rem;
+$font-size-xl: 3.6rem;
 
-$image-size: 14.4rem;
+// Image Size
+$image-size-for-mobile: 7.2rem;
+$image-size-for-desktop: 14.4rem;
+
+// Board Size
+$panel-size-for-mobile: 23.3rem;   
+$panel-size-for-desktop: 27rem;   
+
+// Display threshold
+$desktop-breakpoint: 45rem;

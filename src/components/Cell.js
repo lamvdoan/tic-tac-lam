@@ -1,14 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { X_CELL, O_CELL } from '../properties/game';
-import { O_CELL_IMAGE, X_CELL_IMAGE, EMPTY_CELL_IMAGE, IMAGE_HOME } from '../properties/imageFileSystem';
+import { X_CELL, O_CELL, UNOCCUPIED_CELL } from '../properties/game';
 import { chooseACell, checkEndGameCondition } from '../actions/game';
-
-const imagePath = {
-    emptyCell: `${IMAGE_HOME}/${EMPTY_CELL_IMAGE}`,
-    oCell: `${IMAGE_HOME}/${O_CELL_IMAGE}`,
-    xCell: `${IMAGE_HOME}/${X_CELL_IMAGE}`,
-}
 
 export class Cell extends React.Component {
     onClick = () => {
@@ -16,20 +9,23 @@ export class Cell extends React.Component {
         this.props.checkEndGameCondition();
     }
 
-    getImageName = () => {
+    getMarker = () => {
         switch(this.props.game.grid[this.props.id]) {
             case X_CELL:
-                return imagePath['xCell'];
+                return X_CELL;
             case O_CELL:
-                return imagePath['oCell'];
+                return O_CELL;
             default:
-                return imagePath['emptyCell'];
+                return UNOCCUPIED_CELL;
         } 
+
     }
 
     render() {
         return (
-            <img onClick={this.onClick} className="cell" src={this.getImageName()} />
+            <div className="cell" onClick={this.onClick} >
+                {this.getMarker()}
+            </div>
         );
     }
 }

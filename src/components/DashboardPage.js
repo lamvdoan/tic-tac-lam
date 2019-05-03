@@ -5,7 +5,7 @@ import RestartButton from './RestartButton';
 
 const DashboardPage = () => (
     <div className="dashboard">
-        <div className="left-panel">
+        <div className="panel">
             <SummaryWindow />
             <RestartButton />
         </div>

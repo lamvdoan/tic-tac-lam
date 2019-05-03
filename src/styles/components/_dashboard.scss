@@ -1,5 +1,7 @@
 .dashboard {
-    display: flex;
-    flex-direction: row;
-    margin: $xl-size;
+    @media(min-width: $desktop-breakpoint) {
+        display: flex;
+        flex-direction: row;
+        margin: $xl-size;
+    }
 }
