@@ -1,9 +1,11 @@
-const UNOCCUPIED_CELL = '';
+const UNOCCUPIED_CELL = '-';
 const X_CELL = 'X';
 const O_CELL = 'O';
+
 const MAX_NUMBER_OF_CELLS = 9;
 const PLAYER_ONE_ID = 1;
 const PLAYER_TWO_ID = 2;
+
 const WINNING_CELLS_LIST = [
     [0, 1, 2],
     [3, 4, 5],

@@ -1,8 +1,9 @@
 import {
     RESTART_GAME,
-    UPDATE_GRID_ELEMENT,
-    SET_GAME_INACTIVE,
-    GET_NEXT_PLAYER
+    UPDATE_CELL_ON_BOARD,
+    SET_PLAYER_WIN_STATUS,
+    GET_NEXT_PLAYER,
+    SET_CAT_STATUS
 } from './types';
 
 import { 
@@ -17,16 +18,22 @@ export function restartGame() {
     };
 }
 
-export function updateGridElement(index) {
+export function updateCellOnBoard(index) {
     return {
-        type: UPDATE_GRID_ELEMENT,
+        type: UPDATE_CELL_ON_BOARD,
         index
     };
 }
 
-export function setGameInActive() {
+export function setPlayerWinStatus() {
     return {
-        type: SET_GAME_INACTIVE
+        type: SET_PLAYER_WIN_STATUS
+    };
+}
+
+export function setCatStatus() {
+    return {
+        type: SET_CAT_STATUS
     };
 }
 
@@ -36,72 +43,61 @@ export function getNextPlayer() {
     };
 }
 
-export function isMoveValid(index) {
-    return (dispatch, getState) =>  {
-        return (getState().game.grid[index] === UNOCCUPIED_CELL) ? true : false;
-    }
-}
-
-export function checkForWinCondition() {
-    return (dispatch, getState) => {
-        const game = getState().game;
-
-        const getPlayerMarkedCellsReducer = (accumulator, cellMarker, index) => {
-            if (cellMarker === game.currentPlayer.getMarker()) {
-                accumulator.push(index);
-            }
-
-            return accumulator;
-        };
-
-        const playerCells = game.grid.reduce(getPlayerMarkedCellsReducer, []);
-
-        for (let i = 0; i < WINNING_CELLS_LIST.length; i++) {
-            let winningCells = Array.from(WINNING_CELLS_LIST[i]);
-            let didPlayerWin = winningCells.every(cell => playerCells.includes(cell));
-
-            if (didPlayerWin) {
-                dispatch(setGameInActive());
-                // TODO: display victory for specified player
-                break;
-            }
-        }
-    }
-}
-
-export function checkForCatCondition() {
-    return (dispatch, getState) =>  {
-        const game = getState().game;
-
-        if (game.isGameActive) {
-            const countOfOccupiedCells = game.grid.filter(cell => cell != UNOCCUPIED_CELL);
-
-            if (countOfOccupiedCells.length == MAX_NUMBER_OF_CELLS) {
-                dispatch(setGameInActive());
-
-                // TODO: display cat condition
-            }
-        }
-    }
+function isMoveValid(game, index) {
+    return game.grid[index] === UNOCCUPIED_CELL;
 }
 
 export function chooseACell(index) {
     return (dispatch, getState) =>  {
         const game = getState().game;
 
-        if (game.isGameActive) {
-            const validMove = dispatch(isMoveValid(index));
+        if (game.isGameActive && isMoveValid(game, index)) {
+            dispatch(updateCellOnBoard(index));
+        }
+    }
+}
 
-            if (validMove) {
-                dispatch(updateGridElement(index));
-                dispatch(checkForWinCondition());
-                dispatch(checkForCatCondition());
-                
-                if (game.isGameActive) {
-                    dispatch(getNextPlayer());
-                }
+function isThereAWin(game) {
+    const getPlayerMarkedCellsReducer = (accumulator, cellMarker, index) => {
+        if (cellMarker === game.currentPlayer.getMarker()) {
+            accumulator.push(index);
+        }
+
+        return accumulator;
+    };
+
+    const playerCells = game.grid.reduce(getPlayerMarkedCellsReducer, []);
+
+    for (let i = 0; i < WINNING_CELLS_LIST.length; i++) {
+        let winningCells = Array.from(WINNING_CELLS_LIST[i]);
+        let didPlayerWin = winningCells.every(cell => playerCells.includes(cell));
+
+        if (didPlayerWin) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function isThereACat(game) {
+    if (game.isGameActive) {
+        const countOfOccupiedCells = game.grid.filter(cell => cell != UNOCCUPIED_CELL);
+        return countOfOccupiedCells.length == MAX_NUMBER_OF_CELLS;
+    }
+}
+
+export function checkEndGameCondition() {
+    return (dispatch, getState) => {
+        const game = getState().game;
+
+        if (game.isGameActive) {
+            if (isThereAWin(game)) {
+                dispatch(setPlayerWinStatus());
+            } else if (isThereACat(game)) {
+                dispatch(setCatStatus());
             } else {
-            // TODO: Display message to try again
+                dispatch(getNextPlayer());
             }
         }
     }
