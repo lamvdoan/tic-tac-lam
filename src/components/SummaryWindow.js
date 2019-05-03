@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 export const SummaryWindow = ({ game }) => (
     <div className="summary-window">
         <p>{game.isGameActive ? 'Player ' + game.currentPlayer.getPlayerId() + '\'s Turn': 'Game Over!'}</p>
-        <p>{game.isGameActive ? '' : `Player ${game.currentPlayer.getPlayerId()} Wins!`}</p>
+        <p>{game.isGameActive ? '' 
+            : !game.isGameActive && game.didPlayerWinGame ? `Player ${game.currentPlayer.getPlayerId()} Wins!`
+            : !game.isGameActive && !game.didPlayerWinGame ? 'Cat!' : ''
+            }
+        </p>
     </div>
 );
 

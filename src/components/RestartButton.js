@@ -9,7 +9,7 @@ export class RestartButton extends React.Component {
 
     render() {
         return (
-            <button onClick={this.onClick} className="button">Restart</button>
+            <button onClick={this.onClick} className="button">Play Again</button>
         );
     }
 }

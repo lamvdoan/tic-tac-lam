@@ -1,8 +1,9 @@
 import {
     RESTART_GAME,
     UPDATE_CELL_ON_BOARD,
-    SET_GAME_INACTIVE,
-    GET_NEXT_PLAYER
+    SET_PLAYER_WIN_STATUS,
+    GET_NEXT_PLAYER,
+    SET_CAT_STATUS
 } from './types';
 
 import { 
@@ -24,9 +25,15 @@ export function updateCellOnBoard(index) {
     };
 }
 
-export function setGameInActive() {
+export function setPlayerWinStatus() {
     return {
-        type: SET_GAME_INACTIVE
+        type: SET_PLAYER_WIN_STATUS
+    };
+}
+
+export function setCatStatus() {
+    return {
+        type: SET_CAT_STATUS
     };
 }
 
@@ -34,6 +41,20 @@ export function getNextPlayer() {
     return {
         type: GET_NEXT_PLAYER
     };
+}
+
+function isMoveValid(game, index) {
+    return game.grid[index] === UNOCCUPIED_CELL;
+}
+
+export function chooseACell(index) {
+    return (dispatch, getState) =>  {
+        const game = getState().game;
+
+        if (game.isGameActive && isMoveValid(game, index)) {
+            dispatch(updateCellOnBoard(index));
+        }
+    }
 }
 
 function isThereAWin(game) {
@@ -71,25 +92,13 @@ export function checkEndGameCondition() {
         const game = getState().game;
 
         if (game.isGameActive) {
-            if (isThereAWin(game) || isThereACat(game)) {
-                dispatch(setGameInActive());
+            if (isThereAWin(game)) {
+                dispatch(setPlayerWinStatus());
+            } else if (isThereACat(game)) {
+                dispatch(setCatStatus());
             } else {
                 dispatch(getNextPlayer());
             }
-        }
-    }
-}
-
-function isMoveValid(game, index) {
-    return game.grid[index] === UNOCCUPIED_CELL;
-}
-
-export function chooseACell(index) {
-    return (dispatch, getState) =>  {
-        const game = getState().game;
-
-        if (game.isGameActive && isMoveValid(game, index)) {
-            dispatch(updateCellOnBoard(index));
         }
     }
 }
