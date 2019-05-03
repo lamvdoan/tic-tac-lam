@@ -5,10 +5,12 @@
     color: $off-blue;
     text-align: center;
     vertical-align: middle;
+    padding-bottom: $xxxl-size;
     
     @media(max-width: $desktop-breakpoint) {
         width: $image-size-for-mobile;
         height: $image-size-for-mobile;
         font-size: $image-size-for-mobile;
+        padding-bottom: $xxl-size;
     }
 }
