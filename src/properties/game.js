@@ -1,4 +1,4 @@
-const UNOCCUPIED_CELL = '-';
+const UNOCCUPIED_CELL = '';
 const X_CELL = 'X';
 const O_CELL = 'O';
 

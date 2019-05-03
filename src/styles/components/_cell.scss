@@ -1,4 +1,14 @@
 .cell {
-    width: $image-size;
-    height: $image-size;
+    width: $image-size-for-desktop;
+    height: $image-size-for-desktop;
+    font-size: $image-size-for-desktop;
+    color: $off-blue;
+    text-align: center;
+    vertical-align: middle;
+    
+    @media(max-width: $desktop-breakpoint) {
+        width: $image-size-for-mobile;
+        height: $image-size-for-mobile;
+        font-size: $image-size-for-mobile;
+    }
 }

@@ -1,7 +1,7 @@
 .board {
-    margin: 0 0 0 $l-size ;
-}
+    margin: 0 0 0 $l-size;
 
-.board__row {
-    padding: 0 0 0 0;
+    th {
+        border: .01rem solid black;
+    }
 }
