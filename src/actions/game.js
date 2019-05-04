@@ -53,6 +53,18 @@ export function chooseACell(index) {
 
         if (game.isGameActive && isMoveValid(game, index)) {
             dispatch(updateCellOnBoard(index));
+            const updatedGame = {
+                ...game, 
+                grid: game.grid.map((current, oldIndex) => {
+                    if (oldIndex == index) {
+                        return game.currentPlayer.getMarker();
+                    }
+
+                    return current;
+                })
+            }
+
+            dispatch(checkEndGameCondition(updatedGame));
         }
     }
 }
@@ -81,24 +93,19 @@ function isThereAWin(game) {
 }
 
 function isThereACat(game) {
-    if (game.isGameActive) {
-        const countOfOccupiedCells = game.grid.filter(cell => cell != UNOCCUPIED_CELL);
-        return countOfOccupiedCells.length == MAX_NUMBER_OF_CELLS;
-    }
+    const countOfOccupiedCells = game.grid.filter(cell => cell != UNOCCUPIED_CELL);
+    return countOfOccupiedCells.length == MAX_NUMBER_OF_CELLS;
 }
 
-export function checkEndGameCondition() {
+function checkEndGameCondition(game) {
     return (dispatch, getState) => {
-        const game = getState().game;
 
-        if (game.isGameActive) {
-            if (isThereAWin(game)) {
-                dispatch(setPlayerWinStatus());
-            } else if (isThereACat(game)) {
-                dispatch(setCatStatus());
-            } else {
-                dispatch(getNextPlayer());
-            }
+        if (isThereAWin(game)) {
+            dispatch(setPlayerWinStatus());
+        } else if (isThereACat(game)) {
+            dispatch(setCatStatus());
+        } else {
+            dispatch(getNextPlayer());
         }
     }
 }

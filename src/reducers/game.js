@@ -58,10 +58,10 @@ export default (state = gameReducerDefaultState, action) => {
                 isGameActive: false
             }
         case GET_NEXT_PLAYER:
-                return {
-                    ...state, 
-                    currentPlayer: state.currentPlayer.getPlayerId() === state.players[0].getPlayerId() ? state.players[1] : state.players[0]
-                };
+            return {
+                ...state, 
+                currentPlayer: state.currentPlayer.getPlayerId() === state.players[0].getPlayerId() ? state.players[1] : state.players[0]
+            };
         default:
             return state;
     }

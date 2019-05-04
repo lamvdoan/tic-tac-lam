@@ -6,7 +6,6 @@ import { chooseACell, checkEndGameCondition } from '../actions/game';
 export class Cell extends React.Component {
     onClick = () => {
         this.props.chooseACell(this.props.id);
-        this.props.checkEndGameCondition();
     }
 
     getMarker = () => {
@@ -18,12 +17,11 @@ export class Cell extends React.Component {
             default:
                 return UNOCCUPIED_CELL;
         } 
-
     }
 
     render() {
         return (
-            <div className="cell" onClick={this.onClick} >
+            <div className="cell" onClick={this.onClick}>
                 {this.getMarker()}
             </div>
         );
