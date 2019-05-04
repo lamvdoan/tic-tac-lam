@@ -62,7 +62,7 @@ export function chooseACell(index) {
 
                     return current;
                 })
-            }
+            };
 
             dispatch(checkEndGameCondition(updatedGame));
         }

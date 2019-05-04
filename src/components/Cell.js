@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { X_CELL, O_CELL, UNOCCUPIED_CELL } from '../properties/game';
-import { chooseACell, checkEndGameCondition } from '../actions/game';
+import { chooseACell } from '../actions/game';
 
 export class Cell extends React.Component {
     onClick = () => {
@@ -33,8 +33,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    chooseACell: (index) => dispatch(chooseACell(index)),
-    checkEndGameCondition: () => dispatch(checkEndGameCondition())
+    chooseACell: (index) => dispatch(chooseACell(index))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cell);
