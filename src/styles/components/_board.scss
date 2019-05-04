@@ -1,7 +1,11 @@
 .board {
-    margin: 0 0 0 $l-size;
+    margin: 0 $l-size 0 $l-size;
 
     th {
         border: .1rem solid black;
+    }
+
+    @media(max-width: $desktop-breakpoint) {
+        margin-bottom: $l-size;
     }
 }
