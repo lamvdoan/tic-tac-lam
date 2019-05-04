@@ -55,12 +55,8 @@ export function chooseACell(index) {
             dispatch(updateCellOnBoard(index));
             const updatedGame = {
                 ...game, 
-                grid: game.grid.map((current, oldIndex) => {
-                    if (oldIndex == index) {
-                        return game.currentPlayer.getMarker();
-                    }
-
-                    return current;
+                grid: game.grid.map((current, currentIndex) => {
+                    return currentIndex == index ?  game.currentPlayer.getMarker() : current;
                 })
             };
 
@@ -98,7 +94,7 @@ function isThereACat(game) {
 }
 
 function checkEndGameCondition(game) {
-    return (dispatch, getState) => {
+    return (dispatch) => {
 
         if (isThereAWin(game)) {
             dispatch(setPlayerWinStatus());
