@@ -1,7 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render Expense Dashboard page 1`] = `
-<div>
-  Tic Tac Lam Landing Page
+<div
+  className="dashboard"
+>
+  <div
+    className="panel"
+  >
+    <Connect(SummaryWindow) />
+    <Connect(RestartButton) />
+  </div>
+  <Board />
 </div>
 `;

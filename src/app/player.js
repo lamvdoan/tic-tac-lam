@@ -1,4 +1,4 @@
-export class Player {
+export default class Player {
     constructor(marker, playerId) {
         this.marker = marker;
         this.playerId = playerId;

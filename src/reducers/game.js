@@ -1,4 +1,4 @@
-import { Player } from '../app/player';
+import Player from '../app/player';
 import { 
     MAX_NUMBER_OF_CELLS, 
     UNOCCUPIED_CELL, 
@@ -6,7 +6,7 @@ import {
     PLAYER_TWO_ID, 
     X_CELL, 
     O_CELL
-} from '../properties/game';
+} from '../app/properties';
 
 import { 
     RESTART_GAME, 
