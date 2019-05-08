@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { X_CELL, O_CELL, UNOCCUPIED_CELL } from '../properties/game';
-import { chooseACell } from '../actions/game';
+import { X_CELL, O_CELL, UNOCCUPIED_CELL } from '../app/properties';
+import { chooseACell } from '../app/game';
 
 export class Cell extends React.Component {
     onClick = () => {

@@ -1,156 +1,191 @@
-import { Game } from '../../app/game';
-import * as grid from '../fixtures/grid';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
 
-/* startGame() */
+import { chooseACell } from '../../app/game';
+import {
+    UPDATE_CELL_ON_BOARD,
+    SET_PLAYER_WIN_STATUS,
+    SET_CAT_STATUS,
+    GET_NEXT_PLAYER
+} from '../../actions/types';
 
-test('should initialize values', () => {
-    let game = new Game();
-    game.startGame();
-    expect(game.grid).toEqual(Array(9).fill(''));
-    expect(game.isGameActive).toEqual(true);
-    expect(game.currentPlayer).toEqual(game.players[0]);
-});
-
-
-/* chooseACell() */
-
-test('should call a series of function when chosen cell is valid', () => {
-    let game = new Game();
-
-    game.cellIsMarked = jest.fn();
-    game.checkForWinCondition = jest.fn();
-    game.checkForCatCondition = jest.fn();
-    game.nextPlayer = jest.fn();
-    
-    game.startGame();
-    game.chooseACell(2);
-
-    expect(game.cellIsMarked).toHaveBeenCalledWith(2);
-    expect(game.checkForWinCondition).toHaveBeenCalled();
-    expect(game.checkForCatCondition).toHaveBeenCalled();
-    expect(game.nextPlayer).toHaveBeenCalled();
-});
+import {
+    boardIsCat,
+    boardIsCatAgain,
+    boardHorizontalXWin,
+    boardVerticalOWin,
+    boardPartiallyFilled
+} from '../fixtures/board';
+import { gameReducerDefaultState, alternateGameReducerState } from '../fixtures/game';
 
 
-/* isMoveValid() */
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+
+const path = require('path');
+const appGamePath = path.join(__dirname, '../../app/game.js');
+
+const isMoveValid = require(appGamePath).__get__('isMoveValid');
+const isThereAWin = require(appGamePath).__get__('isThereAWin');
+const isThereACat = require(appGamePath).__get__('isThereACat');
+
 
 test('should be a valid move', () => {
-    let game = new Game();
-    game.startGame();
-    game.grid = grid.gridPartiallyFilled;
-    const isMoveValid = game.isMoveValid(4);
-    expect(isMoveValid).toEqual(true);
+    const game = {
+        grid: boardPartiallyFilled
+    };
+    const index = 7;
+
+    const results = isMoveValid(game, index);
+    expect(results).toEqual(true);
 });
 
 test('should be an invalid move', () => {
-    let game = new Game();
-    game.startGame();
-    game.grid = grid.gridPartiallyFilled;
-    const isMoveValid = game.isMoveValid(3);
-    expect(isMoveValid).toEqual(false);
+    const game = {
+        grid: boardPartiallyFilled
+    };
+    const index = 0;
+
+    const results = isMoveValid(game, index);
+    expect(results).toEqual(false);
 });
 
+test('should win when x matches', () => {
+    const game = {
+        ...gameReducerDefaultState,
+        grid: boardHorizontalXWin
+    };
 
-/* cellIsMarked() */
-
-test('should mark a cell with X', () => {
-    let game = new Game();
-    game.startGame();
-    game.cellIsMarked(0);
-    expect(game.grid[0]).toEqual('X');
+    const results = isThereAWin(game);
+    expect(results).toEqual(true);
 });
 
-test('should mark a cell with O', () => {
-    let game = new Game();
-    game.startGame();
-    game.nextPlayer();
-    game.cellIsMarked(8);
-    expect(game.grid[8]).toEqual('O');
+test('should win when o matches', () => {
+    const game = {
+        ...alternateGameReducerState,
+        grid: boardVerticalOWin
+    };
+
+    const results = isThereAWin(game);
+    expect(results).toEqual(true);
 });
 
+test('should not be a win when there is a cat', () => {
+    const game = {
+        ...alternateGameReducerState,
+        grid: boardIsCat
+    };
 
-/* checkForWinCondition() */
-
-test('should win when there is a horizontal match', () => {
-    let game = new Game();
-    game.startGame();
-    game.grid = grid.gridHorizontalXWin;
-    game.checkForWinCondition();
-    expect(game.isGameActive).toEqual(false);
+    const results = isThereAWin(game);
+    expect(results).toEqual(false);
 });
 
-test('should win when there is a vertical match', () => {
-    let game = new Game();
-    game.startGame();
-    game.nextPlayer();
-    game.grid = grid.gridVerticalOWin;
-    game.checkForWinCondition();
-    expect(game.isGameActive).toEqual(false);
+test('should not be a win when board is partially filled', () => {
+    const game = {
+        ...alternateGameReducerState,
+        grid: boardPartiallyFilled
+    };
+
+    const results = isThereAWin(game);
+    expect(results).toEqual(false);
 });
 
-test('should win when there is a diagonal match', () => {
-    let game = new Game();
-    game.startGame();
-    game.grid = grid.gridDiagonalXWin;
-    game.checkForWinCondition();
-    expect(game.isGameActive).toEqual(false);
+test('should be a cat with dataset one', () => {
+    const game = {
+        ...alternateGameReducerState,
+        grid: boardIsCat
+    };
+
+    const results = isThereACat(game);
+    expect(results).toEqual(true);
 });
 
-test('should not win when there is cat', () => {
-    let game = new Game();
-    game.startGame();
-    game.grid = grid.gridIsCat;
-    game.checkForWinCondition();
-    expect(game.isGameActive).toEqual(true);
+test('should be a cat with dataset two', () => {
+    const game = {
+        ...alternateGameReducerState,
+        grid: boardIsCatAgain
+    };
+
+    const results = isThereACat(game);
+    expect(results).toEqual(true);
 });
 
+test('should not be a cat when board is partially filled', () => {
+    const game = {
+        ...alternateGameReducerState,
+        grid: boardPartiallyFilled
+    };
 
-/* checkForCatCondition() */
-
-test('should be cat when board is fully filled with dataset 1', () => {
-    let game = new Game();
-    game.startGame();
-    game.grid = grid.gridIsCat;
-    game.checkForCatCondition();
-    expect(game.isGameActive).toEqual(false);
+    const results = isThereACat(game);
+    expect(results).toEqual(false);
 });
 
-test('should be cat when board is fully filled with dataset 2', () => {
-    let game = new Game();
-    game.startGame();
-    game.grid = grid.gridIsCatAgain;
-    game.checkForCatCondition();
-    expect(game.isGameActive).toEqual(false);
+test('should choose a cell and dispatch setPlayerWinStatus actions', () => {
+    const index = 7;
+
+    const expectedActions = [
+        { type: UPDATE_CELL_ON_BOARD, index },
+        { type: SET_PLAYER_WIN_STATUS }
+    ];
+
+    const store = mockStore({
+        game: {
+            ...gameReducerDefaultState,
+            grid: boardPartiallyFilled
+        }
+    });
+
+    store.dispatch(chooseACell(index));
+    expect(store.getActions()).toEqual(expectedActions);
 });
 
-test('should not be cat when board is partially filled with', () => {
-    let game = new Game();
-    game.startGame();
-    game.grid = grid.gridPartiallyFilled;
-    game.checkForCatCondition();
-    expect(game.isGameActive).toEqual(true);
+test('should choose a cell and dispatch setCatStatus actions', () => {
+    const index = 7;
+
+    const expectedActions = [
+        { type: UPDATE_CELL_ON_BOARD, index },
+        { type: SET_CAT_STATUS }
+    ];
+
+    const store = mockStore({
+        game: {
+            ...alternateGameReducerState,
+            grid: boardPartiallyFilled
+        }
+    });
+
+    store.dispatch(chooseACell(index));
+    expect(store.getActions()).toEqual(expectedActions);
 });
 
+test('should choose a cell and dispatch setPlayerWinStatus actions', () => {
+    const index = 7;
 
-/* nextPlayer() */
+    const expectedActions = [
+        { type: UPDATE_CELL_ON_BOARD, index },
+        { type: GET_NEXT_PLAYER }
+    ];
 
-test('should make current player be player 1 at start of game', () => {
-    let game = new Game();
-    game.startGame();
-    expect(game.currentPlayer).toEqual(game.players[0]);
+    const store = mockStore({
+        game: {
+            ...gameReducerDefaultState
+        }
+    });
+
+    store.dispatch(chooseACell(index));
+    expect(store.getActions()).toEqual(expectedActions);
 });
 
-test('should make current player be player 2 after 1 turn', () => {
-    let game = new Game();
-    game.startGame();
-    game.nextPlayer();
-    expect(game.currentPlayer).toEqual(game.players[1]);
-});
+test('should choose an invalid cell and dispatch no actions', () => {
+    const index = 0;
 
-test('should make current player be player 1 after 2 turns', () => {
-    let game = new Game();
-    game.startGame();
-    game.nextPlayer();
-    game.nextPlayer();
-    expect(game.currentPlayer).toEqual(game.players[0]);
+    const store = mockStore({
+        game: {
+            ...gameReducerDefaultState,
+            grid: boardPartiallyFilled
+        }
+    });
+
+    store.dispatch(chooseACell(index));
+    expect(store.getActions()).toEqual([]);
 });

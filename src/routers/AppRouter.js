@@ -1,5 +1,4 @@
 import DashboardPage from '../components/DashboardPage';
-import HelpPage from '../components/HelpPage';
 import NotFoundPage from '../components/NotFoundPage';
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -9,7 +8,6 @@ const AppRouter = () =>  (
         <div>
             <Switch>
                 <Route path="/" component={DashboardPage} exact={true} />
-                <Route path="/help" component={HelpPage} />
                 <Route component={NotFoundPage} />
             </Switch>
         </div>
