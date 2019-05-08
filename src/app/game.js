@@ -1,8 +1,8 @@
 import { 
-    MAX_NUMBER_OF_CELLS, 
     UNOCCUPIED_CELL, 
+    MAX_NUMBER_OF_CELLS, 
     WINNING_CELLS_LIST
-} from '../app/properties';
+} from './properties';
 
 import { 
     updateCellOnBoard, 

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render summary window with cat 1`] = `
+<div
+  className="summary-window"
+>
+  <p>
+    Cat!
+  </p>
+</div>
+`;
+
+exports[`should render summary window with player 1 winning 1`] = `
+<div
+  className="summary-window"
+>
+  <p>
+    Player 1 Wins!
+  </p>
+</div>
+`;
+
+exports[`should render summary window with player 1's turn 1`] = `
+<div
+  className="summary-window"
+>
+  <p>
+    Player 1's Turn
+  </p>
+</div>
+`;
+
+exports[`should render summary window with player 2 winning 1`] = `
+<div
+  className="summary-window"
+>
+  <p>
+    Player 2 Wins!
+  </p>
+</div>
+`;
+
+exports[`should render summary window with player 2's turn 1`] = `
+<div
+  className="summary-window"
+>
+  <p>
+    Player 2's Turn
+  </p>
+</div>
+`;

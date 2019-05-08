@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { X_CELL, O_CELL, UNOCCUPIED_CELL } from '../app/properties';
+import { X_CELL, O_CELL, UNOCCUPIED_CELL } from './../app/properties';
 import { chooseACell } from '../app/game';
 
 export class Cell extends React.Component {
