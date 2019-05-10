@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { X_CELL, O_CELL, UNOCCUPIED_CELL } from './../app/properties';
 import { chooseACell } from '../app/game';
 
 export class Cell extends React.Component {
@@ -8,21 +7,10 @@ export class Cell extends React.Component {
         this.props.chooseACell(this.props.id);
     }
 
-    getMarker = () => {
-        switch(this.props.game.grid[this.props.id]) {
-            case X_CELL:
-                return X_CELL;
-            case O_CELL:
-                return O_CELL;
-            default:
-                return UNOCCUPIED_CELL;
-        } 
-    }
-
     render() {
         return (
             <div className="cell" onClick={this.onClick}>
-                {this.getMarker()}
+                {this.props.game.grid[this.props.id]}
             </div>
         );
     }
